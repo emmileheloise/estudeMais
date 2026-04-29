@@ -1,5 +1,15 @@
 # Estude+
 
+---
+## Equipe
+Emmile Heloise     -- Gerente de Projeto
+Ingrid Emanuelly   --	Desenvolvedora Frontend
+Nicole Araujo      --	Testadora
+Vagner Ricardo     --	Analista de Sistemas
+Vinicius de Gusmão -- Desenvolvedor Backend
+
+---
+
 ## Sobre o Projeto
 
 O Estude+ é um aplicativo desenvolvido para auxiliar estudantes na organização de seus estudos, permitindo gerenciar matérias, tarefas e acompanhar o tempo de estudo diário.
@@ -69,3 +79,4 @@ O Estude+ oferece uma solução simples e eficiente através de:
 - React Native (Expo)
 - JavaScript
 - AsyncStorage
+
