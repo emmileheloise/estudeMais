@@ -2,11 +2,11 @@
 
 ---
 ## Equipe
-- Emmile Heloise     -- Gerente de Projeto
-- Ingrid Emanuelly   --	Desenvolvedora Frontend
-- Nicole Araujo      --	Testadora
-- Vagner Ricardo     --	Analista de Sistemas
-- Vinicius de Gusmão -- Desenvolvedor Backend
+- Emmile Heloise     --> Gerente de Projeto
+- Ingrid Emanuelly   -->	Desenvolvedora Frontend
+- Nicole Araujo      -->	Testadora
+- Vagner Ricardo     -->	Analista de Sistemas
+- Vinicius de Gusmão --> Desenvolvedor Backend
 
 ---
 
