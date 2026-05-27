@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estude+</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div id="sidebar" class="sidebar">
+    <h3>Estude+</h3>
+    <a href="index.html">Início</a>
+    <a href="materias.html">Matérias</a>
+    <a href="tarefas.html">Tarefas</a>
+    <a href="cronometro.html">Cronômetro</a>
+    <a href="perfil.html">Perfil</a>
+</div>
+
+<div class="container">
+
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+    <header>Estude+</header>
+
+    <div class="section">
+        <h2>Tempo estudado hoje</h2>
+        <div id="tempoHoje" class="timer">00:00:00</div>
+    </div>
+
+    <div class="section">
+        <h2>Progresso da meta</h2>
+        <div class="progress-bar">
+            <div id="progresso" class="progress"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Tarefas pendentes</h2>
+        <div id="tarefasHoje"></div>
+    </div>
+
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>

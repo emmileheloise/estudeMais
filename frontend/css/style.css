@@ -1,0 +1,181 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    display: flex;
+    background: #f4f0fb;
+}
+
+/* SIDEBAR FIXA */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: linear-gradient(180deg, #8e6dfc, #6a4caf);
+    color: white;
+    padding: 25px;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.sidebar h3 {
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.sidebar a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* CONTAINER */
+.container {
+    margin-left: 260px;
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* HEADER */
+header {
+    font-size: 22px;
+    font-weight: bold;
+    color: #6a4caf;
+    margin-bottom: 20px;
+}
+
+/* SEÇÕES */
+.section {
+    margin-bottom: 25px;
+}
+
+h2 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+/* PROGRESSO */
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #e5dcf7;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #8e6dfc, #b9a7ff);
+    width: 0%;
+}
+
+/* CARDS */
+.card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    font-size: 14px;
+}
+
+.materia-card,
+.tarefa-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* CHECKBOX */
+input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+/* BOTÕES */
+button {
+    padding: 10px 12px;
+    border: none;
+    border-radius: 10px;
+    background: #8e6dfc;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #7a5de0;
+}
+
+/* INPUTS */
+input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* LABELS */
+label {
+    font-size: 13px;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* TIMER */
+.timer {
+    font-size: 28px;
+    font-weight: bold;
+    color: #6a4caf;
+    margin-bottom: 15px;
+}
+
+/* MENU MOBILE */
+.menu-btn {
+    display: none;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+
+    .sidebar {
+        position: fixed;
+        left: -240px;
+        transition: 0.3s;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .container {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .menu-btn {
+        display: block;
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #6a4caf;
+        cursor: pointer;
+    }
+}
