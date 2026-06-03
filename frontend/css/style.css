@@ -1,0 +1,545 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background: linear-gradient(
+        135deg,
+        #f8f5ff,
+        #f1ecff
+    );
+}
+
+/* ===== SIDEBAR ===== */
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        #8e6dfc,
+        #6a4caf
+    );
+
+    color: white;
+
+    padding: 30px 20px;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    box-shadow:
+        4px 0 20px rgba(0,0,0,0.08);
+
+    z-index: 100;
+}
+
+.sidebar h3 {
+    font-size: 24px;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.sidebar a {
+    display: block;
+
+    color: white;
+
+    text-decoration: none;
+
+    margin-bottom: 12px;
+
+    padding: 12px 14px;
+
+    border-radius: 12px;
+
+    transition: all 0.25s ease;
+}
+
+.sidebar a:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateX(4px);
+}
+
+/* ===== CONTAINER ===== */
+
+.container {
+
+    margin-left: 250px;
+
+    width: calc(100% - 250px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    padding: 40px;
+}
+
+/* ===== CABEÇALHO ===== */
+
+header {
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+    color: #6a4caf;
+
+    margin-bottom: 30px;
+
+    text-align: center;
+}
+
+/* ===== TÍTULOS ===== */
+
+h2 {
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    margin-bottom: 14px;
+
+    color: #6a4caf;
+}
+
+/* ===== SEÇÕES ===== */
+
+.section {
+
+    width: 100%;
+
+    max-width: 950px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 22px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 8px 24px rgba(106,76,175,0.08);
+}
+
+/* ===== CARDS ===== */
+
+.card {
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 18px;
+
+    margin-bottom: 15px;
+
+    box-shadow:
+        0 8px 24px rgba(106,76,175,0.08);
+
+    transition: 0.2s;
+}
+
+.card:hover {
+
+    transform: translateY(-2px);
+}
+
+.materia-card,
+.tarefa-card {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.materia-card span {
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    color: #444;
+
+    cursor: pointer;
+}
+
+/* ===== INPUTS ===== */
+
+input,
+select {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    padding: 14px;
+
+    border-radius: 14px;
+
+    border: 2px solid #ebe4ff;
+
+    background: white;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+
+    margin-bottom: 12px;
+}
+
+input:focus,
+select:focus {
+
+    outline: none;
+
+    border-color: #8e6dfc;
+
+    box-shadow:
+        0 0 0 4px rgba(142,109,252,0.15);
+}
+
+/* ===== LABELS ===== */
+
+label {
+
+    width: 100%;
+
+    max-width: 900px;
+
+    font-size: 13px;
+
+    color: #555;
+
+    display: block;
+
+    margin-bottom: 6px;
+}
+
+/* ===== BOTÕES ===== */
+
+button {
+
+    width: fit-content;
+
+    padding: 14px 18px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: linear-gradient(
+        135deg,
+        #8e6dfc,
+        #6a4caf
+    );
+
+    color: white;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+
+    box-shadow:
+        0 6px 18px rgba(106,76,175,0.2);
+
+    margin-bottom: 15px;
+}
+
+button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 24px rgba(106,76,175,0.25);
+}
+
+button:last-child {
+    min-width: 45px;
+}
+
+/* ===== CHECKBOX ===== */
+
+input[type="checkbox"] {
+
+    width: auto;
+
+    margin-right: 10px;
+
+    transform: scale(1.2);
+}
+
+/* ===== PROGRESSO ===== */
+
+.progress-bar {
+
+    width: 100%;
+
+    height: 14px;
+
+    background: #e5dcf7;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.progress {
+
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        #8e6dfc,
+        #b9a7ff
+    );
+
+    width: 0%;
+
+    transition: width 0.5s ease;
+}
+
+/* ===== TIMER ===== */
+
+.timer {
+
+    font-size: 56px;
+
+    font-weight: 700;
+
+    color: #6a4caf;
+
+    text-align: center;
+
+    margin: 25px 0;
+}
+
+/* ===== MENU MOBILE ===== */
+
+.menu-btn {
+
+    display: none;
+}
+
+/* ===== KANBAN ===== */
+
+.kanban {
+
+    display: flex;
+
+    gap: 24px;
+
+    margin-top: 25px;
+
+    align-items: flex-start;
+
+    overflow-x: auto;
+
+    padding-bottom: 10px;
+
+    width: 100%;
+}
+
+.kanban-coluna {
+
+    flex: 1;
+
+    min-width: 320px;
+
+    background: #ebe4ff;
+
+    border-radius: 18px;
+
+    padding: 18px;
+
+    box-shadow:
+        0 6px 18px rgba(106,76,175,0.12);
+}
+
+.kanban-coluna h3 {
+
+    text-align: center;
+
+    color: #6a4caf;
+
+    font-size: 18px;
+
+    margin-bottom: 18px;
+
+    padding-bottom: 10px;
+
+    border-bottom:
+        2px solid rgba(106,76,175,0.15);
+}
+
+.kanban-coluna .card {
+
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 14px;
+
+    margin-bottom: 12px;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.06);
+
+    transition: 0.2s;
+}
+
+.kanban-coluna .card:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(0,0,0,0.08);
+}
+
+.kanban-coluna strong {
+
+    display: block;
+
+    color: #333;
+
+    font-size: 15px;
+
+    margin-bottom: 6px;
+}
+
+.kanban-coluna small {
+
+    display: inline-block;
+
+    background: #e9e1ff;
+
+    color: #6a4caf;
+
+    padding: 4px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    margin-bottom: 12px;
+}
+
+.kanban-coluna select {
+
+    margin-top: 10px;
+
+    margin-bottom: 0;
+
+    border: none;
+
+    background: #f5f1ff;
+
+    color: #6a4caf;
+
+    font-weight: 600;
+}
+
+/* ===== TAG MATÉRIA ===== */
+
+.tag-materia {
+
+    display: inline-block;
+
+    background: #e9e1ff;
+
+    color: #6a4caf;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    margin-top: 5px;
+
+    margin-bottom: 10px;
+}
+
+/* ===== SCROLL KANBAN ===== */
+
+.kanban::-webkit-scrollbar {
+    height: 8px;
+}
+
+.kanban::-webkit-scrollbar-track {
+    background: #ebe4ff;
+    border-radius: 10px;
+}
+
+.kanban::-webkit-scrollbar-thumb {
+    background: #8e6dfc;
+    border-radius: 10px;
+}
+
+/* ===== RESPONSIVO ===== */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+
+        left: -250px;
+
+        transition: 0.3s;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .container {
+
+        margin-left: 0;
+
+        width: 100%;
+
+        padding: 20px;
+    }
+
+    .menu-btn {
+
+        display: block;
+
+        font-size: 24px;
+
+        color: #6a4caf;
+
+        margin-bottom: 15px;
+
+        cursor: pointer;
+    }
+
+    .timer {
+        font-size: 42px;
+    }
+
+    header {
+        font-size: 28px;
+    }
+}
+#listaMaterias,
+#listaTarefas {
+    width: 100%;
+    max-width: 900px;
+}

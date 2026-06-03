@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfil</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div id="sidebar" class="sidebar">
+    <h3>Estude+</h3>
+    <a href="index.html">Início</a>
+    <a href="materias.html">Matérias</a>
+    <a href="tarefas.html">Tarefas</a>
+    <a href="cronometro.html">Cronômetro</a>
+    <a href="perfil.html">Perfil</a>
+</div>
+
+<div class="container">
+
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+    <header>Perfil do Estudante</header>
+
+    <label>Nome</label>
+    <input id="nome">
+
+    <label>Curso</label>
+    <input id="curso">
+
+    <label>Instituição</label>
+    <input id="instituicao">
+
+    <label>Meta diária (horas)</label>
+    <input
+    id="meta"
+    type="number"
+    min="0"
+    step="0.5">
+
+    <button onclick="salvarPerfil()">Salvar</button>
+
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
