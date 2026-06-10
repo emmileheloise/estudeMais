@@ -1,0 +1,42 @@
+{
+  "materias": [
+    {
+      "id": 1781093293504,
+      "nome": "Matemática",
+      "meta": 2,
+      "tempoEstudado": 9
+    },
+    {
+      "id": 1781093321170,
+      "nome": "Artes",
+      "meta": 1,
+      "tempoEstudado": 0
+    },
+    {
+      "id": 1781094015842,
+      "nome": "Concurso",
+      "meta": 2,
+      "tempoEstudado": 0
+    }
+  ],
+  "tarefas": [
+    {
+      "id": 1781093977185,
+      "materiaId": 1781093293504,
+      "titulo": "Projeto augusto",
+      "concluida": true,
+      "status": "concluida",
+      "link": "",
+      "observacoes": ""
+    },
+    {
+      "id": 1781094035032,
+      "materiaId": 1781094015842,
+      "titulo": "Link pro edital",
+      "concluida": true,
+      "status": "concluida",
+      "link": "https://www.estrategiaconcursos.com.br/blog/concurso-pm-al/",
+      "observacoes": ""
+    }
+  ]
+}

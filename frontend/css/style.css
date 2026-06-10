@@ -151,6 +151,10 @@ h2 {
     transition: 0.2s;
 }
 
+.coluna-tarefas {
+    min-height: 200px;
+}
+
 .card:hover {
 
     transform: translateY(-2px);
@@ -542,4 +546,109 @@ input[type="checkbox"] {
 #listaTarefas {
     width: 100%;
     max-width: 900px;
+}
+/* ===== MODAL ===== */
+
+.modal {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,0.4);
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 999;
+}
+
+.modal-content {
+
+    background: white;
+
+    width: 90%;
+
+    max-width: 600px;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.15);
+}
+
+.modal-content h2 {
+
+    margin-bottom: 20px;
+
+    text-align: center;
+
+    color: #6a4caf;
+}
+
+.modal-content textarea {
+
+    width: 100%;
+
+    min-height: 150px;
+
+    padding: 14px;
+
+    border-radius: 14px;
+
+    border: 2px solid #ebe4ff;
+
+    resize: vertical;
+
+    margin-bottom: 15px;
+}
+
+.modal-botoes {
+
+    display: flex;
+
+    gap: 10px;
+
+    justify-content: flex-end;
+}
+
+#abrirLink {
+
+    display: inline-block;
+
+    margin-top: 10px;
+
+    margin-bottom: 15px;
+
+    padding: 10px 14px;
+
+    border-radius: 12px;
+
+    background: #ebe4ff;
+
+    color: #6a4caf;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+#abrirLink:hover {
+
+    background: #dcd0ff;
+}
+.btn-detalhes {
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    margin-bottom: 10px;
 }

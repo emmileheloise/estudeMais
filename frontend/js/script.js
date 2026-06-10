@@ -1,43 +1,99 @@
 // ===== STORAGE =====
-function getData() {
-    return JSON.parse(localStorage.getItem("estudeMais")) || {
-        materias: [],
-        tarefas: [],
-        tempoHoje: 0,
-        perfil: { meta: 0 }
-    };
-}
+const API = "http://localhost:3000";
 
-function saveData(data) {
-    localStorage.setItem("estudeMais", JSON.stringify(data));
-}
 
-// ===== MATERIAS =====
-function addMateria() {
+let dados = {
+    materias: [],
+    tarefas: []
+};
 
-    const nome =
-        document.getElementById("materiaInput").value;
+async function atualizarDados(){
 
-    const meta =
-        document.getElementById("metaMateria").value;
+    await fetch(`${API}/dados`, {
 
-    if (!nome) return;
+        method:"PUT",
 
-    const data = getData();
+        headers:{
+            "Content-Type":"application/json"
+        },
 
-    data.materias.push({
-        id: Date.now(),
-        nome: nome,
-        meta: Number(meta) || 0,
-        tempoEstudado: 0
+        body: JSON.stringify(dados)
+
     });
 
-    saveData(data);
+}
 
-    document.getElementById("materiaInput").value = "";
-    document.getElementById("metaMateria").value = "";
+async function carregarDados(){
+
+    const materias =
+        await fetch(`${API}/materias`)
+        .then(res=>res.json());
+
+
+    const tarefas =
+        await fetch(`${API}/tarefas`)
+        .then(res=>res.json());
+
+
+    dados.materias = materias;
+    dados.tarefas = tarefas;
+
 
     renderMaterias();
+
+    renderKanban();
+
+    renderTarefasMateria();
+
+    renderHome();
+
+    renderProgressoMaterias();
+
+    carregarMateriasCronometro();
+
+    carregarPerfil();
+
+}
+
+
+// ===== MATERIAS =====
+async function addMateria(){
+
+    const nome =
+    document.getElementById("materiaInput").value;
+
+
+    const meta =
+    document.getElementById("metaMateria").value;
+
+
+
+    await fetch(`${API}/materias`,{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            nome:nome,
+
+            meta:Number(meta)
+
+        })
+
+    });
+
+
+    document.getElementById("materiaInput").value="";
+
+    document.getElementById("metaMateria").value="";
+
+
+    carregarDados();
+
 }
 
 function renderMaterias() {
@@ -47,7 +103,7 @@ function renderMaterias() {
 
     if (!lista) return;
 
-    const data = getData();
+    const data = dados;
 
     lista.innerHTML = "";
 
@@ -67,37 +123,41 @@ function renderMaterias() {
 
         lista.innerHTML += `
 
-        <div class="card">
+<div class="card">
 
-            <div class="materia-card">
+    <div class="materia-card">
 
-                <span onclick="verMateria(${m.id})">
-                    ${m.nome}
-                </span>
-
-                <button onclick="deleteMateria(${m.id})">
-                    🗑
-                </button>
-
-            </div>
-
-            <small>
-                ${formatTime(m.tempoEstudado)}
-                / ${m.meta}h
-            </small>
-
-            <div class="progress-bar">
-
-                <div
-                    class="progress"
-                    style="width:${porcentagem}%">
-                </div>
-
-            </div>
-
+        <div>
+            <strong>${m.nome}</strong>
         </div>
 
-        `;
+        <div>
+            <button onclick="verMateria(${m.id})">
+                Ver tarefas
+            </button>
+
+            <button onclick="deleteMateria(${m.id})">
+                🗑
+            </button>
+        </div>
+
+    </div>
+
+    <small>
+        ${formatTime(m.tempoEstudado)}
+        / ${m.meta}h
+    </small>
+
+    <div class="progress-bar">
+        <div
+            class="progress"
+            style="width:${porcentagem}%">
+        </div>
+    </div>
+
+</div>
+
+`;
     });
 }
 
@@ -110,7 +170,7 @@ function carregarMateriasCronometro() {
 
     if (!select) return;
 
-    const data = getData();
+    const data = dados;
 
     select.innerHTML =
         `<option value="">Escolha uma matéria</option>`;
@@ -128,7 +188,7 @@ function carregarMateriasCronometro() {
 
 function deleteMateria(id) {
 
-    let data = getData();
+    let data = dados;
 
     data.materias =
         data.materias.filter(
@@ -140,7 +200,7 @@ function deleteMateria(id) {
             t => t.materiaId !== id
         );
 
-    saveData(data);
+    atualizarDados();
 
     renderMaterias();
 
@@ -153,30 +213,51 @@ function verMateria(id) {
 }
 
 // ===== TAREFAS =====
-function addTarefa() {
-    const input = document.getElementById("tarefaInput");
-    const select = document.getElementById("materiaSelect");
+async function addTarefa(){
 
-    if (!input.value || !select.value) return;
+    const input =
+    document.getElementById("tarefaInput");
 
-    const data = getData();
 
-    data.tarefas.push({
-    id: Date.now(),
-    materiaId: Number(select.value),
-    titulo: input.value,
-    concluida: false,
-    status: "pendente"
-});
+    const select =
+    document.getElementById("materiaSelect");
 
-    saveData(data);
-    input.value = "";
-    renderTarefasGeral();
+
+    if(!input.value || !select.value)
+        return;
+
+
+
+    await fetch(`${API}/tarefas`,{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+
+        body:JSON.stringify({
+
+            materiaId:Number(select.value),
+
+            titulo:input.value
+
+        })
+
+    });
+
+
+
+    input.value="";
+
+
+    carregarDados();
+
 }
 
 function toggleTarefa(id) {
-
-    const data = getData();
+    const data = dados;
 
     const t =
         data.tarefas.find(
@@ -190,7 +271,7 @@ function toggleTarefa(id) {
             ? "concluida"
             : "pendente";
 
-    saveData(data);
+    atualizarDados();
 
     renderTarefasMateria();
 
@@ -200,9 +281,9 @@ function toggleTarefa(id) {
 }
 
 function deleteTarefa(id) {
-    let data = getData();
+    let data = dados;
     data.tarefas = data.tarefas.filter(t => t.id !== id);
-    saveData(data);
+    atualizarDados();
     renderTarefasGeral();
 }
 
@@ -220,7 +301,7 @@ function renderKanban() {
 
     if (!pendentes) return;
 
-    const data = getData();
+    const data = dados;
     const select =
     document.getElementById(
         "materiaSelect"
@@ -254,36 +335,29 @@ if (select) {
                 m => m.id === t.materiaId
             );
 
-        const card = `
-            <div class="card">
+const card = `
+    <div 
+        class="card"
+        draggable="true"
+        ondragstart="arrastarTarefa(${t.id})"
+    >
 
-                <strong>${t.titulo}</strong>
+        <strong>${t.titulo}</strong>
 
-                <div class="tag-materia">
-                ${materia?.nome || ""}
-                </div>
-                <select
-                    onchange="alterarStatus(${t.id}, this.value)">
+        <div class="tag-materia">
+            ${materia?.nome || ""}
+        </div>
 
-                    <option value="pendente"
-                        ${t.status === "pendente" ? "selected" : ""}>
-                        Pendente
-                    </option>
+        <button
+            class="btn-detalhes"
+            onclick="abrirDetalhes(${t.id})">
 
-                    <option value="andamento"
-                        ${t.status === "andamento" ? "selected" : ""}>
-                        Em andamento
-                    </option>
+            Ver detalhes
 
-                    <option value="concluida"
-                        ${t.status === "concluida" ? "selected" : ""}>
-                        Concluída
-                    </option>
+        </button>
 
-                </select>
-
-            </div>
-        `;
+    </div>
+`;
 
         if (t.status === "pendente")
             pendentes.innerHTML += card;
@@ -297,7 +371,7 @@ if (select) {
 }
 function alterarStatus(id, status) {
 
-    const data = getData();
+    const data = dados;
 
     const tarefa =
         data.tarefas.find(
@@ -306,14 +380,59 @@ function alterarStatus(id, status) {
 
     if (!tarefa) return;
 
+
     tarefa.status = status;
 
-    tarefa.concluida =
-        status === "concluida";
 
-    saveData(data);
+    if(status === "concluida"){
+        tarefa.concluida = true;
+    } 
+    else {
+        tarefa.concluida = false;
+    }
+
+
+    atualizarDados();
+
 
     renderKanban();
+
+    renderTarefasMateria();
+
+    renderHome();
+}
+
+let tarefaArrastada = null;
+
+
+function arrastarTarefa(id) {
+
+    tarefaArrastada = id;
+
+    console.log("Arrastando:", id);
+
+}
+
+function permitirSoltar(event) {
+
+    event.preventDefault();
+
+}
+
+
+function soltarTarefa(status) {
+
+    if(!tarefaArrastada) return;
+
+
+    alterarStatus(
+        tarefaArrastada,
+        status
+    );
+
+
+    tarefaArrastada = null;
+
 }
 
 // ===== TAREFAS POR MATÉRIA =====
@@ -331,7 +450,7 @@ function renderTarefasMateria() {
 
     if (!lista) return;
 
-    const data = getData();
+    const data = dados;
 
     const id =
         Number(
@@ -380,9 +499,24 @@ function renderTarefasMateria() {
 
                         </div>
 
-                        <button onclick="deleteTarefa(${t.id})">
-                            🗑
-                        </button>
+                        <div>
+
+                            <button
+                                onclick="abrirDetalhes(${t.id})">
+
+                                Detalhes
+
+                            </button>
+
+                            <button
+                                onclick="deleteTarefa(${t.id})">
+
+                                🗑
+
+                            </button>
+
+                        </div>
+                                            
 
                     </div>
 
@@ -400,7 +534,7 @@ function renderHome() {
 
     if (!lista) return;
 
-    const data = getData();
+    const data = dados;
 
     data.tempoHoje = Number(data.tempoHoje) || 0;
 
@@ -482,7 +616,7 @@ function saveTempo() {
     const materiaId =
         Number(select.value);
 
-    const data = getData();
+    const data = dados;
 
     const materia =
         data.materias.find(
@@ -509,7 +643,7 @@ function saveTempo() {
 
     data.tempoHoje += segundos;
 
-    saveData(data);
+    atualizarDados();
 
     localStorage.removeItem(
         "inicioCronometro"
@@ -580,7 +714,7 @@ function renderProgressoMaterias() {
 
     if (!container) return;
 
-    const data = getData();
+    const data = dados;
 
     container.innerHTML = "";
 
@@ -623,7 +757,7 @@ function renderProgressoMaterias() {
 }
 // ===== PERFIL =====
 function salvarPerfil() {
-    const data = getData();
+    const data = dados;
 
     data.perfil = {
         nome: document.getElementById("nome").value,
@@ -632,7 +766,7 @@ function salvarPerfil() {
         meta: document.getElementById("meta").value
     };
 
-    saveData(data);
+    atualizarDados();
 }
 
 function carregarPerfil() {
@@ -641,7 +775,7 @@ function carregarPerfil() {
 
     if (!nome) return;
 
-    const data = getData();
+    const data = dados;
 
     nome.value = data.perfil?.nome || "";
 
@@ -663,13 +797,17 @@ function toggleMenu() {
 // ===== INIT =====
 document.addEventListener("DOMContentLoaded", () => {
 
-    renderMaterias();
-    renderKanban();
-    renderTarefasMateria();
-    renderHome();
-    renderProgressoMaterias();
+
+    carregarDados();
+
+
     carregarPerfil();
+
+
     carregarMateriasCronometro();
+
+
+
     if (
         localStorage.getItem(
             "cronometroAtivo"
@@ -681,8 +819,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateTimer,
                 1000
             );
+
     }
+
+
     updateTimer();
+
 
 });
 
@@ -705,7 +847,7 @@ function resetTimer() {
 
 function resetTempoHoje() {
 
-    const data = getData();
+    const data = dados;
 
     data.tempoHoje = 0;
 
@@ -713,11 +855,108 @@ function resetTempoHoje() {
         m.tempoEstudado = 0;
     });
 
-    saveData(data);
+    atualizarDados();
 
     renderHome();
 
     renderMaterias();
 
     renderProgressoMaterias();
+}
+
+let tarefaAtual = null;
+
+function abrirDetalhes(id) {
+
+    const data = dados;
+
+    const tarefa =
+        data.tarefas.find(
+            t => t.id === id
+        );
+
+    if (!tarefa) return;
+
+    tarefaAtual = id;
+
+    document.getElementById(
+        "linkTarefa"
+    ).value = tarefa.link || "";
+
+    const linkEl =
+    document.getElementById(
+        "abrirLink"
+    );
+
+if (tarefa.link) {
+
+    linkEl.href = tarefa.link;
+
+    linkEl.style.display =
+        "inline-block";
+
+} else {
+
+    linkEl.style.display =
+        "none";
+}
+
+    document.getElementById(
+        "obsTarefa"
+    ).value = tarefa.observacoes || "";
+
+    document.getElementById(
+        "modalTarefa"
+    ).style.display = "flex";
+}
+
+function fecharModal() {
+
+    document.getElementById(
+        "modalTarefa"
+    ).style.display = "none";
+}
+
+function salvarDetalhesTarefa() {
+
+    const data = dados;
+
+    const tarefa =
+        data.tarefas.find(
+            t => t.id === tarefaAtual
+        );
+
+    if (!tarefa) return;
+
+    tarefa.link =
+        document.getElementById(
+            "linkTarefa"
+        ).value;
+
+    tarefa.observacoes =
+        document.getElementById(
+            "obsTarefa"
+        ).value;
+
+atualizarDados();
+
+        const linkEl =
+    document.getElementById(
+        "abrirLink"
+    );
+
+if (tarefa.link) {
+
+    linkEl.href = tarefa.link;
+
+    linkEl.style.display =
+        "inline-block";
+
+} else {
+
+    linkEl.style.display =
+        "none";
+}
+    
+    fecharModal();
 }
